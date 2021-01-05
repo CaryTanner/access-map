@@ -31,9 +31,6 @@ export default function Header() {
   const clickLink = (page) => {
     router.push(page);
   };
-  const handleKeyPress = (event) => {
-    if (event.keyCode === 13) event.currentTarget.click();
-  };
 
   //dispatch logout redux action & show success
   const dispatch = useDispatch();
@@ -47,7 +44,7 @@ export default function Header() {
     message.success("Logged out");
   };
 
-  //state for dynamic nav & avatar
+  //menus for dynamic nav & avatar
   const { user } = useSelector((state) => state.auth);
   const avatarInitial = user ? user.name.charAt(0).toUpperCase() : null;
 
@@ -64,126 +61,101 @@ export default function Header() {
     </Menu>
   );
 
-  const loggedOutMenu = [
-    <Menu
-      mode="horizontal"
-      defaultSelectedKeys={["home"]}
-      id="nav"
-      key="nav"
-      style={{ border: "none" }}
-    >
-      <Menu.Item
-        key="home"
-        tabindex={0}
-        onClick={() => clickLink("/")}
-        onKeyPress={() => handleEnterKey(clickLink("/"))}
-      >
-        Home
-      </Menu.Item>
-      <Menu.Item
-        key="map"
-        tabindex={0}
-        onClick={() => clickLink("/map")}
-        onKeyPress={() => handleEnterKey(clickLink("/map"))}
-      >
-        See Map
-      </Menu.Item>
-      <Menu.Item
-        key="report"
-        tabindex={0}
-        onClick={() => clickLink("/makereport")}
-        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
-      >
-        Make Report
-      </Menu.Item>
-      <Menu.Item
-        key="about"
-        tabindex={0}
-        onClick={() => clickLink("/about")}
-        onKeyPress={() => handleEnterKey(clickLink("/about"))}
-      >
-        About
-      </Menu.Item>
-
-      <Menu.Item
-        key="sign up"
-        tabindex={0}
-        onClick={() => clickLink("/signup")}
-        onKeyPress={() => handleEnterKey(clickLink("/signup"))}
-      >
-        Sign Up
-      </Menu.Item>
-      <Menu.Item
-        tabindex={0}
-        key="login"
-        onClick={() => clickLink("/login")}
-        onKeyPress={() => handleEnterKey(clickLink("/login"))}
-      >
-        Login
-      </Menu.Item>
-    </Menu>,
-  ];
-
-  const loggedInMenu = [
-    <Menu
-      mode="horizontal"
-      defaultSelectedKeys={["home"]}
-      id="nav"
-      key="nav"
-      style={{ border: "none" }}
-    >
-      <Menu.Item
-        key="home"
-        tabindex={0}
-        onClick={() => clickLink("/")}
-        onKeyPress={() => handleEnterKey(clickLink("/"))}
-      >
-        Home
-      </Menu.Item>
-      <Menu.Item
-        key="map"
-        tabindex={0}
-        onClick={() => clickLink("/map")}
-        onKeyPress={() => handleEnterKey(clickLink("/map"))}
-      >
-        See Map
-      </Menu.Item>
-      <Menu.Item
-        tabindex={0}
-        onClick={() => clickLink("/makereport")}
-        key="report"
-        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
-      >
-        Make Report
-      </Menu.Item>
-      <Menu.Item
-        tabindex={0}
-        onClick={() => clickLink("/about")}
-        key="about"
-        onKeyPress={() => handleEnterKey(clickLink("/about"))}
-      >
-        About
-      </Menu.Item>
-
-      <Dropdown overlay={avatarMenu} trigger={["click"]}>
-        <Avatar
-        className={styles.focus}
+  const loggedOut = () => {
+    return (
+      <>
+        <Menu.Item
+          key="sign up"
           tabindex={0}
-          aria-haspopup="true"
-          style={{
-            backgroundColor: "#154d42 ",
-            verticalAlign: "middle",
-            marginLeft: "20px",
-          }}
-          size="large"
-          //keyboard opens dropdown
-          onKeyPress={(event) => handleEnterKey(event.currentTarget.click())}
+          onClick={() => clickLink("/signup")}
+          onKeyPress={() => handleEnterKey(clickLink("/signup"))}
         >
-          {avatarInitial}
-        </Avatar>
-      </Dropdown>
-    </Menu>,
-  ];
+          Sign Up
+        </Menu.Item>
+        <Menu.Item
+          tabindex={0}
+          key="login"
+          onClick={() => clickLink("/login")}
+          onKeyPress={() => handleEnterKey(clickLink("/login"))}
+        >
+          Login
+        </Menu.Item>
+      </>
+    );
+  };
+  const loggedIn = () => {
+    return (
+      <>
+        <Dropdown overlay={avatarMenu} trigger={["click"]}>
+          <Avatar
+            className={styles.focus}
+            tabindex={0}
+            aria-haspopup="true"
+            style={{
+              backgroundColor: "#154d42 ",
+              verticalAlign: "middle",
+              marginLeft: "20px",
+            }}
+            size="large"
+            //keyboard opens dropdown
+            onKeyPress={(event) => handleEnterKey(event.currentTarget.click())}
+          >
+            {avatarInitial}
+          </Avatar>
+        </Dropdown>
+      </>
+    );
+  };
+
+  const links = () => {
+    return (<>
+    <Menu.Item
+        key="home"
+        tabindex={0}
+        onClick={() => clickLink("/")}
+        onKeyPress={() => handleEnterKey(clickLink("/"))}
+      >
+        Home
+      </Menu.Item>
+      <Menu.Item
+        key="map"
+        tabindex={0}
+        onClick={() => clickLink("/map")}
+        onKeyPress={() => handleEnterKey(clickLink("/map"))}
+      >
+        See Map
+      </Menu.Item>
+      <Menu.Item
+        key="report"
+        tabindex={0}
+        onClick={() => clickLink("/makereport")}
+        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
+      >
+        Make Report
+      </Menu.Item>
+      <Menu.Item
+        key="about"
+        tabindex={0}
+        onClick={() => clickLink("/about")}
+        onKeyPress={() => handleEnterKey(clickLink("/about"))}
+      >
+        About
+      </Menu.Item>
+    </>)
+  }
+
+  const menu = () => {
+    return (<Menu
+      mode="horizontal"
+      defaultSelectedKeys={["home"]}
+      id="nav"
+      key="nav"
+      style={{ border: "none" }}
+    >
+      {links()}
+      {user ? loggedIn() : loggedOut()}
+    </Menu>
+    )};
 
   const mobileMenu = () => {
     return (
@@ -194,55 +166,8 @@ export default function Header() {
         key="nav"
         style={{ border: "none" }}
       >
-        <Menu.Item
-          tabindex={0}
-          onClick={() => clickLink("/")}
-          key="home"
-          onKeyPress={() => handleEnterKey(clickLink("/"))}
-        >
-          Home
-        </Menu.Item>
-        <Menu.Item
-          tabindex={0}
-          key="map"
-          onClick={() => clickLink("/map")}
-          onKeyPress={() => handleEnterKey(clickLink("/map"))}
-        >
-          See Map
-        </Menu.Item>
-        <Menu.Item
-          tabindex={0}
-          onClick={() => clickLink("/makereport")}
-          onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
-          key="report"
-        >
-          Make Report
-        </Menu.Item>
-        <Menu.Item
-          tabindex={0}
-          onClick={() => clickLink("/about")}
-          key="about"
-          onKeyPress={() => handleEnterKey(clickLink("/about"))}
-        >
-          About
-        </Menu.Item>
-
-        <Menu.Item
-          tabindex={0}
-          onClick={() => clickLink("/signup")}
-          onKeyPress={() => handleEnterKey(clickLink("/signup"))}
-          key="sign up"
-        >
-          Sign Up
-        </Menu.Item>
-        <Menu.Item
-          tabindex={0}
-          onClick={() => clickLink("/login")}
-          key="login"
-          onKeyPress={() => handleEnterKey(clickLink("/login"))}
-        >
-          Login
-        </Menu.Item>
+        {links()}
+        {user ? null : loggedOut()}
       </Menu>
     );
   };
@@ -257,49 +182,51 @@ export default function Header() {
           padding: xs ? " 0 20px" : " 0 50px",
         }}
       >
-        <Row align="bottom">
-          <Col lg={4} md={5} sm={8} xs={8}>
+        <Row >
+          <Col lg={4} md={5} sm={8} xs={12}>
             <a href="/" id="logo">
-              <Typography.Title level={3} style={{ lineHeight: ".8" }}>
+              <Typography.Title level={3} style={{ lineHeight: ".8", marginTop: "20px" }}>
                 Accessible Stockholm
               </Typography.Title>
             </a>
           </Col>
           <Col lg={20} md={19} sm={0} xs={0}>
-            <Row justify="end">{user ? loggedInMenu : loggedOutMenu}</Row>
+            <Row justify="end">{menu()}</Row>
           </Col>
-          <Col lg={0} md={0} sm={16} xs={16}>
-            <Row justify="end">
+          <Col lg={0} md={0} sm={16} xs={12}>
+            <Row justify="end" style={{marginTop: "20px"}}>
               <Dropdown overlay={mobileMenu} trigger={["click"]}>
                 <MenuOutlined
                   className={styles.focus}
                   tabindex={0}
                   aria-haspopup="true"
-                  style={{ fontSize: "1.5rem", verticalAlign: "bottom" }}
+                  style={{ fontSize: "1.5rem", marginTop: "8px" }}
                   onKeyPress={(event) =>
                     handleEnterKey(event.currentTarget.click())
                   }
                 />
               </Dropdown>
-             {user && <Dropdown overlay={avatarMenu} trigger={["click"]}>
-                <Avatar
-                  tabindex={0}
-                  aria-haspopup="true"
-                  style={{
-                    backgroundColor: "#154d42 ",
-                    verticalAlign: "middle",
-                    marginLeft: "20px",
-                  }}
-                  className={styles.focus}
-                  size="large"
-                  //keyboard opens dropdown
-                  onKeyPress={(event) =>
-                    handleEnterKey(event.currentTarget.click())
-                  }
-                >
-                  {avatarInitial}
-                </Avatar> 
-              </Dropdown>}
+              {user && (
+                <Dropdown overlay={avatarMenu} trigger={["click"]}>
+                  <Avatar
+                    tabindex={0}
+                    aria-haspopup="true"
+                    style={{
+                      backgroundColor: "#154d42 ",
+                      verticalAlign: "middle",
+                      marginLeft: "20px",
+                    }}
+                    className={styles.focus}
+                    size="large"
+                    //keyboard opens dropdown
+                    onKeyPress={(event) =>
+                      handleEnterKey(event.currentTarget.click())
+                    }
+                  >
+                    {avatarInitial}
+                  </Avatar>
+                </Dropdown>
+              )}
             </Row>
           </Col>
         </Row>
