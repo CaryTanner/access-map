@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import styles from './Header.module.css'
+import styles from "./Header.module.css";
 import {
   Menu,
   Row,
@@ -17,6 +17,7 @@ import { useRouter } from "../../utils/useRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/slices/authSlice";
 import { MenuOutlined } from "@ant-design/icons";
+import { handleEnterKey } from "../../utils/utils";
 
 export default function Header() {
   const router = useRouter();
@@ -71,33 +72,53 @@ export default function Header() {
       key="nav"
       style={{ border: "none" }}
     >
-      <Menu.Item key="home" tabindex={0} onClick={() => clickLink("/")}>
-        
-          Home
-        
+      <Menu.Item
+        key="home"
+        tabindex={0}
+        onClick={() => clickLink("/")}
+        onKeyPress={() => handleEnterKey(clickLink("/"))}
+      >
+        Home
       </Menu.Item>
-      <Menu.Item tabindex={0} onClick={() => clickLink("/map")}key="map">
-        
-          See Map
-       
+      <Menu.Item
+        key="map"
+        tabindex={0}
+        onClick={() => clickLink("/map")}
+        onKeyPress={() => handleEnterKey(clickLink("/map"))}
+      >
+        See Map
       </Menu.Item>
-      <Menu.Item key="report" tabindex={0} onClick={() => clickLink("/makereport")}>
-        
-          Make Report
-        
+      <Menu.Item
+        key="report"
+        tabindex={0}
+        onClick={() => clickLink("/makereport")}
+        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
+      >
+        Make Report
       </Menu.Item>
-      <Menu.Item tabindex={0} onClick={() => clickLink("/about")} key="about">
+      <Menu.Item
+        key="about"
+        tabindex={0}
+        onClick={() => clickLink("/about")}
+        onKeyPress={() => handleEnterKey(clickLink("/about"))}
+      >
         About
       </Menu.Item>
 
       <Menu.Item
+        key="sign up"
         tabindex={0}
         onClick={() => clickLink("/signup")}
-        key="sign up"
+        onKeyPress={() => handleEnterKey(clickLink("/signup"))}
       >
         Sign Up
       </Menu.Item>
-      <Menu.Item tabindex={0} key="login" onClick={() => clickLink("/login")}>
+      <Menu.Item
+        tabindex={0}
+        key="login"
+        onClick={() => clickLink("/login")}
+        onKeyPress={() => handleEnterKey(clickLink("/login"))}
+      >
         Login
       </Menu.Item>
     </Menu>,
@@ -111,25 +132,42 @@ export default function Header() {
       key="nav"
       style={{ border: "none" }}
     >
-      <Menu.Item tabindex={0} onClick={() => clickLink("/")} key="home">
+      <Menu.Item
+        key="home"
+        tabindex={0}
+        onClick={() => clickLink("/")}
+        onKeyPress={() => handleEnterKey(clickLink("/"))}
+      >
         Home
       </Menu.Item>
-      <Menu.Item tabindex={0} key="map">
+      <Menu.Item
+        key="map"
+        tabindex={0}
+        onClick={() => clickLink("/map")}
+        onKeyPress={() => handleEnterKey(clickLink("/map"))}
+      >
         See Map
       </Menu.Item>
       <Menu.Item
         tabindex={0}
         onClick={() => clickLink("/makereport")}
         key="report"
+        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
       >
         Make Report
       </Menu.Item>
-      <Menu.Item tabindex={0} onClick={() => clickLink("/about")} key="about">
+      <Menu.Item
+        tabindex={0}
+        onClick={() => clickLink("/about")}
+        key="about"
+        onKeyPress={() => handleEnterKey(clickLink("/about"))}
+      >
         About
       </Menu.Item>
 
       <Dropdown overlay={avatarMenu} trigger={["click"]}>
         <Avatar
+        className={styles.focus}
           tabindex={0}
           aria-haspopup="true"
           style={{
@@ -138,12 +176,15 @@ export default function Header() {
             marginLeft: "20px",
           }}
           size="large"
+          //keyboard opens dropdown
+          onKeyPress={(event) => handleEnterKey(event.currentTarget.click())}
         >
           {avatarInitial}
         </Avatar>
       </Dropdown>
     </Menu>,
   ];
+
   const mobileMenu = () => {
     return (
       <Menu
@@ -153,31 +194,53 @@ export default function Header() {
         key="nav"
         style={{ border: "none" }}
       >
-        <Menu.Item tabindex={0} onClick={() => clickLink("/")} key="home">
+        <Menu.Item
+          tabindex={0}
+          onClick={() => clickLink("/")}
+          key="home"
+          onKeyPress={() => handleEnterKey(clickLink("/"))}
+        >
           Home
         </Menu.Item>
-        <Menu.Item tabindex={0} key="map">
+        <Menu.Item
+          tabindex={0}
+          key="map"
+          onClick={() => clickLink("/map")}
+          onKeyPress={() => handleEnterKey(clickLink("/map"))}
+        >
           See Map
         </Menu.Item>
         <Menu.Item
           tabindex={0}
           onClick={() => clickLink("/makereport")}
+          onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
           key="report"
         >
           Make Report
         </Menu.Item>
-        <Menu.Item tabindex={0} onClick={() => clickLink("/about")} key="about">
+        <Menu.Item
+          tabindex={0}
+          onClick={() => clickLink("/about")}
+          key="about"
+          onKeyPress={() => handleEnterKey(clickLink("/about"))}
+        >
           About
         </Menu.Item>
 
         <Menu.Item
           tabindex={0}
           onClick={() => clickLink("/signup")}
+          onKeyPress={() => handleEnterKey(clickLink("/signup"))}
           key="sign up"
         >
           Sign Up
         </Menu.Item>
-        <Menu.Item tabindex={0} onClick={() => clickLink("/login")} key="login">
+        <Menu.Item
+          tabindex={0}
+          onClick={() => clickLink("/login")}
+          key="login"
+          onKeyPress={() => handleEnterKey(clickLink("/login"))}
+        >
           Login
         </Menu.Item>
       </Menu>
@@ -206,14 +269,37 @@ export default function Header() {
             <Row justify="end">{user ? loggedInMenu : loggedOutMenu}</Row>
           </Col>
           <Col lg={0} md={0} sm={16} xs={16}>
-            <Row justify="end" style={{ minHeight: "65px" }}>
+            <Row justify="end">
               <Dropdown overlay={mobileMenu} trigger={["click"]}>
                 <MenuOutlined
+                  className={styles.focus}
                   tabindex={0}
                   aria-haspopup="true"
                   style={{ fontSize: "1.5rem", verticalAlign: "bottom" }}
+                  onKeyPress={(event) =>
+                    handleEnterKey(event.currentTarget.click())
+                  }
                 />
               </Dropdown>
+             {user && <Dropdown overlay={avatarMenu} trigger={["click"]}>
+                <Avatar
+                  tabindex={0}
+                  aria-haspopup="true"
+                  style={{
+                    backgroundColor: "#154d42 ",
+                    verticalAlign: "middle",
+                    marginLeft: "20px",
+                  }}
+                  className={styles.focus}
+                  size="large"
+                  //keyboard opens dropdown
+                  onKeyPress={(event) =>
+                    handleEnterKey(event.currentTarget.click())
+                  }
+                >
+                  {avatarInitial}
+                </Avatar> 
+              </Dropdown>}
             </Row>
           </Col>
         </Row>
