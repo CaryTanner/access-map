@@ -19,6 +19,10 @@ import { logoutUser } from "../../redux/slices/authSlice";
 import { MenuOutlined } from "@ant-design/icons";
 import { handleEnterKey } from "../../utils/utils";
 
+
+//@TODO- set menu keys to follow params 
+
+
 export default function Header() {
   const router = useRouter();
 
@@ -123,7 +127,7 @@ export default function Header() {
         onClick={() => clickLink("/map")}
         onKeyPress={() => handleEnterKey(clickLink("/map"))}
       >
-        See Map
+        Map
       </Menu.Item>
       <Menu.Item
         key="report"

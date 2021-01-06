@@ -32,7 +32,7 @@ export const getSingleReport = async(req, res) => {
 export const createReport= async(req, res) => {
     try{
         
-        const {category, address, description, title } = req.body
+        const {category, address, description, title, status } = req.body
 
         if (!category || !address  || !description || !title)
         return res.status(400).json({ msg: "Please enter all fields" });
@@ -44,15 +44,20 @@ export const createReport= async(req, res) => {
 
 
         const newReport = new Report({
-            title,
-            created_by: req.user.id,
-            category,
-            description,
-            location: {
-                coordinates: results.geometry.coordinates,
-                formattedAddress: results.place_name
-            }
-
+            data: { 
+              geometry: {
+                coordinates: results.geometry.coordinates
+              },
+              properties: {
+                created_by: req.user.id,
+                title,
+                formattedAddress: results.place_name,
+                category,
+                status
+              }
+            },
+            description
+            
         })
 
         const registeredReport = await newReport.save()
@@ -60,16 +65,7 @@ export const createReport= async(req, res) => {
 
         res.status(200).json({
             status: "success",
-            report: {
-                id: registeredReport._id,
-                title: registeredReport.title,
-                created_by: registeredReport.created_by,
-                category: registeredReport.category,
-
-                description: registeredReport.description,
-                location: registeredReport.location,
-                status: registeredReport.status,
-            } 
+            registeredReport 
           });
 
 

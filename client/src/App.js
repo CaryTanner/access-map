@@ -10,6 +10,8 @@ import Footer from "./components/Footer/Footer"
 import SignUp from "./components/SignUp/SignUp"
 import MakeReport from "./components/MakeReport/MakeReport"
 import HomePage from "./components/HomePage/HomePage"
+import ReportMap from "./components/ReportMap/ReportMap"
+import ReportDetails from "./components/ReportDetails/ReportDetails"
 
 function App() {
   const { Content } = Layout;
@@ -22,6 +24,9 @@ function App() {
       <Header />
       <Switch>
         <Content style={{backgroundColor: '#fff', maxWidth: "1920px", minHeight: "100vh", margin: "0 auto", padding:xs ? "0 20px" : "0 50px"}}>
+          <Route path="/reports/:id">
+            <ReportDetails />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>
@@ -30,6 +35,9 @@ function App() {
           </Route>
           <Route path="/makereport">
             <MakeReport />
+          </Route>
+          <Route path="/map">
+            <ReportMap />
           </Route>
           <Route path="/users"></Route>
           <Route exact path="/">

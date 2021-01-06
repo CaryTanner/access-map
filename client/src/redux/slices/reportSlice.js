@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getAllReports, getSingleReport  } from '../api/reportsAPI'
+import { getAllReports, getSingleReport  } from '../../api/reportsAPI'
 
 
 const reportsInitialState = {
@@ -32,13 +32,14 @@ const reports = createSlice({
       state.error = null
     },
     getAllReportsSuccess(state, payload ) {
-      const { reports } = payload
+      console.log(payload.payload)
+      const { reports } = payload.payload
      
       state.isLoading = false
       state.error = null
 
       reports.forEach(report => {
-        state.reportsById[report.id] = report
+        state.reportsById[report._id] = report
       })
 
       
@@ -65,6 +66,7 @@ export const fetchAllReports = (
   try {
     dispatch(getAllReportsStart())
     const reports = await getAllReports()
+    
     dispatch(getAllReportsSuccess(reports))
   } catch (err) {
     dispatch(getAllReportsFailure(err.toString()))
