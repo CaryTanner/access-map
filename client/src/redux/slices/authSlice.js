@@ -40,10 +40,10 @@ const authSlice = createSlice({
           },
     loginStart: startLoading,
     
-    loginSuccess(state, payload){
-      console.log(payload.payload)
+    loginSuccess(state, action){
+      console.log(action.payload)
       
-    const { token, user } = payload.payload.data
+    const { token, user } = action.payload.data
       
       localStorage.setItem('token', token)
       state.token = token
@@ -57,9 +57,9 @@ const authSlice = createSlice({
     loginFailure: loadingFailed,
     registerUserStart: startLoading,
     
-    registerUserSuccess(state, payload){
-      console.log(payload)
-      const { token, user } = payload.payload.data
+    registerUserSuccess(state, action){
+      console.log(action)
+      const { token, user } = action.payload.data
       localStorage.setItem('token', token)
       state.isAuthenticated = true
       state.user = user
@@ -72,18 +72,18 @@ const authSlice = createSlice({
     
     verifyUserStart: startLoading,
     
-    verifyUserSuccess(state, payload){
-      console.log(payload)
+    verifyUserSuccess(state, action){
+      console.log(action)
       
       
       state.isAuthenticated = true
-      state.user = payload.payload.data
+      state.user = action.payload.data
       state.isLoading = false
       state.error = null
-      state.role = payload.payload.data.role
+      state.role = action.payload.data.role
     },
   
-    verifyUserFailure(state, payload){
+    verifyUserFailure(state, action){
       state.isAuthenticated = false
       state.isLoading = false
       state.error = null

@@ -10,7 +10,7 @@ import Footer from "./components/Footer/Footer"
 import SignUp from "./components/SignUp/SignUp"
 import MakeReport from "./components/MakeReport/MakeReport"
 import HomePage from "./components/HomePage/HomePage"
-import ReportMap from "./components/ReportMap/ReportMap"
+import MapLanding from "./components/MapLanding/MapLanding"
 import ReportDetails from "./components/ReportDetails/ReportDetails"
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
             <MakeReport />
           </Route>
           <Route path="/map">
-            <ReportMap />
+            <MapLanding />
           </Route>
           <Route path="/users"></Route>
           <Route exact path="/">

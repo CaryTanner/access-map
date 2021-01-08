@@ -1,0 +1,28 @@
+.skipToMap {
+    background: #154d42;
+    color: white;
+    height: 30px;
+    left: -50%;
+    padding: 5px 10px;
+    position: absolute;
+    border-radius: 15px;
+    transform: translateX(-100%) translateY(-75%);
+    transition: transform 0.3s;
+    -webkit-transform: translateX(-100%) translateY(-75%);
+    -moz-transform: translateX(-100%) translateY(-75%);
+    -ms-transform: translateX(-100%) translateY(-75%);
+    -o-transform: translateX(-100%) translateY(-75%);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+  
+  .skipToMap:focus {
+    transform: translateX(0%) translateY(-75%) ;
+    left: 0%;
+    -webkit-transform: translateX(0%) translateY(-75%) ;
+    -moz-transform: translateX(0%) translateY(-75%) ;
+    -ms-transform: translateX(0%) translateY(-75%) ;
+    -o-transform: translateX(0%) translateY(-75%) ;
+}

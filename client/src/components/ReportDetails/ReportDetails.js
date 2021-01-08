@@ -8,5 +8,7 @@ console.log(router.query.id)
     return(<>
     
     all the details go here!
+
+    Make some breadcrumbs!
     </>)
 }

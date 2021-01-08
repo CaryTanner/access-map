@@ -184,6 +184,7 @@ export default function Header() {
           maxWidth: "1920px",
           margin: "0 auto",
           padding: xs ? " 0 20px" : " 0 50px",
+          marginBottom: "30px"
         }}
       >
         <Row >

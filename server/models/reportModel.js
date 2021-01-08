@@ -3,11 +3,7 @@ import { Schema, model } from 'mongoose';
 //creat schema 
 
 const ReportSchema = new Schema({
-  type: {
-    type: String, 
-    enum: ['geojson'], 
-    default: "geojson"
-  },
+  
   data: { 
     type: {
       type: String, 

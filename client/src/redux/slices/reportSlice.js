@@ -7,7 +7,9 @@ const reportsInitialState = {
   reportsById: {},
  
   isLoading: false,
-  error: null
+  error: null,
+  visibleReports: null,
+  reportsFilter: null
 } 
 
 function startLoading(state) {
@@ -25,15 +27,15 @@ const reports = createSlice({
   reducers: {
     getSingleReportStart: startLoading,
     getAllReportsStart: startLoading,
-    getSingleReportSuccess(state, payload) {
-      const { id } = payload
-      state.reportsById[id] = payload
+    getSingleReportSuccess(state, action) {
+      const { id } = action.payload
+      state.reportsById[id] = action.payload
       state.isLoading = false
       state.error = null
     },
-    getAllReportsSuccess(state, payload ) {
-      console.log(payload.payload)
-      const { reports } = payload.payload
+    getAllReportsSuccess(state, action ) {
+      
+      const { reports } = action.payload
      
       state.isLoading = false
       state.error = null
@@ -45,7 +47,14 @@ const reports = createSlice({
       
     },
     getSingleReportFailure: loadingFailed,
-    getAllReportsFailure: loadingFailed
+    getAllReportsFailure: loadingFailed,
+    setVisibleReports(state, action){
+      state.visibleReports = action.payload
+    },
+    setReportsFilter(state, action){
+      
+      state.reportsFilter = action.payload
+    }
   }
 })
 
@@ -55,7 +64,9 @@ export const {
   getSingleReportStart,
   getSingleReportSuccess,
   getSingleReportFailure,
-  getAllReportsFailure
+  getAllReportsFailure,
+  setVisibleReports,
+  setReportsFilter
 } = reports.actions
 
 export default reports.reducer
