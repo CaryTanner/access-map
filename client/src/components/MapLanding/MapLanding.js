@@ -21,6 +21,29 @@ export default function MapLanding(){
     dispatch(fetchAllReports());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const legend = () => {
+    return(
+      <div className={styles.legend}>
+      <div>
+      <img src={roadblock2} alt="red roadblock symbol"></img>
+      <Text>&nbsp;Reported</Text>
+      </div>
+      <div>
+      <img src={square2} alt="yellow square"></img>
+      <Text>&nbsp;Scheduled</Text>
+      </div>
+      <div>
+      <img src={circle2} alt="green circle"></img>
+      <Text>&nbsp;Fixed</Text>
+      </div>
+      <div>
+      <img src={triangle2} alt="blue triangle"></img>
+      <Text>&nbsp;Unresolved</Text>
+      </div>
+      
+   </div>
+    )
+  }
     
     return (
         <Row justify="space-between" gutter={16}>   
@@ -33,25 +56,7 @@ export default function MapLanding(){
             <ReportList />
         </Col> 
          <Col md={16} sm={24}> 
-         <div className={styles.legend}>
-           <div>
-           <img src={roadblock2} alt=""></img>
-           <Text>&nbsp;Reported</Text>
-           </div>
-           <div>
-           <img src={square2} alt=""></img>
-           <Text>&nbsp;Scheduled</Text>
-           </div>
-           <div>
-           <img src={circle2} alt=""></img>
-           <Text>&nbsp;Fixed</Text>
-           </div>
-           <div>
-           <img src={triangle2} alt=""></img>
-           <Text>&nbsp;Unresolved</Text>
-           </div>
-           
-        </div>
+        {legend()}
         <ReportMap />
         </Col> 
         </Row>

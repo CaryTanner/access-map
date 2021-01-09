@@ -193,22 +193,22 @@ export default function ReportMap() {
   };
   
 
-  // useEffect(() => {
-  //   if (mapState) {
-  //     mapState.on("moveend", (event) => {
-  //       if (event.originalEvent){
-  //       let features = mapState.queryRenderedFeatures({
-  //         layers: allLayers,
-  //       });
+  useEffect(() => {
+    if (mapState) {
+      mapState.on("moveend", (event) => {
+        if (event.originalEvent){
+        let features = mapState.queryRenderedFeatures({
+          layers: allLayers,
+        });
 
-  //       if (features) {
+        if (features) {
         
-  //         dispatch(setVisibleReports(features));
-  //       }
-  //       }
-  //     });
-  //   }
-  // });
+          dispatch(setVisibleReports(features));
+        }
+        }
+      });
+    }
+  });
 
   const popUpRef = useRef(new mapboxgl.Popup({ closeButton: false}));
 
