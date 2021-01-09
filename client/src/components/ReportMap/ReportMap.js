@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
+import ReactDOM from "react-dom";
 import styles from "./ReportMap.module.css";
 import mapboxgl from "mapbox-gl";
 import { mapbox_public_key } from "../../api/reportsAPI";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchAllReports,
   setVisibleReports,
 } from "../../redux/slices/reportSlice";
+
 
 import circle2 from "../../images/circle2.png";
 import roadblock2 from "../../images/roadblock2.png";
@@ -17,52 +18,11 @@ mapboxgl.accessToken = mapbox_public_key;
 
 export default function ReportMap() {
   const dispatch = useDispatch();
-  const { reportsById, reportsFilter } = useSelector(
-    (state) => state.reports
-  );
+  const { reportsInGeojson, reportsFilter, popupCoor } = useSelector((state) => state.reports);
 
   //local state for filtering report
   const [mapState, setMapState] = useState(null);
-
-  // empty arrays to reformat reports in geojson in
-  let featuresList = [];
-
-  useEffect(() => {
-    dispatch(fetchAllReports());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // reformat reports to fit as geojson type data for mapping
-  // and later pass along mongoDB _id (for link to details page) to reports list + title, status etc
-  useEffect(() => {
-    if (reportsById) {
-      const reportsArr = Object.entries(reportsById);
-
-      reportsArr.forEach(([key, value]) => {
-        const {
-          status,
-          created_date,
-          title,
-          category,
-          formattedAddress,
-        } = value.data.properties;
-
-        let newProperties = {
-          id: value._id,
-          status,
-          created_date,
-          title,
-          category,
-          formattedAddress,
-        };
-
-        featuresList.push({
-          type: "Feature",
-          geometry: value.data.geometry,
-          properties: newProperties,
-        });
-      });
-    }
-  }, [reportsById]); // eslint-disable-line react-hooks/exhaustive-deps
+  
 
   // div in DOM
   const mapContainerRef = useRef();
@@ -81,10 +41,11 @@ export default function ReportMap() {
     "Unresolved-layer",
   ];
 
+  //create map instance and add all styles/markers
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/light-v10",
       center: [18.07178990362403, 59.323730425969565],
       zoom: 10,
       maxBounds: bounds,
@@ -103,7 +64,7 @@ export default function ReportMap() {
         type: "geojson",
         data: {
           type: "FeatureCollection",
-          features: featuresList,
+          features: reportsInGeojson,
         },
       });
 
@@ -127,7 +88,7 @@ export default function ReportMap() {
             })
         )
       ).then(
-        featuresList.forEach((feature) => {
+        reportsInGeojson.forEach((feature) => {
           //map images to status
           const symbols = {
             Reported: "roadblock-img",
@@ -164,31 +125,20 @@ export default function ReportMap() {
         })
       );
 
-      let features = map.queryRenderedFeatures({
-        layers: allLayers,
-      });
+      // send reports to reports list value in redux state
+      dispatch(setVisibleReports([...reportsInGeojson]));
 
-      if (features) {
-        dispatch(setVisibleReports(featuresList));
-      }
       //set map to state to filter later (set on load so all styles finish loading)
       setMapState(map);
     });
 
-    map.on("moveend", () => {
-      let features = map.queryRenderedFeatures({
-        layers: allLayers,
-      });
-
-      if (features) {
-        dispatch(setVisibleReports(features));
-      }
-    });
+  
 
     let popup = new mapboxgl.Popup({
       closeButton: false,
     });
 
+    //show title pop up on hover
     allLayers.forEach((layer) =>
       map.on("mousemove", layer, (event) => {
         // Change the cursor style as a UI indicator.
@@ -202,6 +152,7 @@ export default function ReportMap() {
           .addTo(map);
       })
     );
+
     allLayers.forEach((layer) =>
       map.on("mouseleave", layer, () => {
         map.getCanvas().style.cursor = "";
@@ -209,14 +160,24 @@ export default function ReportMap() {
       })
     );
 
+    
+    
     return () => map.remove();
-  }, [reportsById]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [reportsInGeojson]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  
-  
   //filter map markers according filter list from redux(set by ReportFilter.js UI)
   useEffect(() => {
     filterMarkers();
+    // if (mapState) {
+    //   let features = mapState.queryRenderedFeatures({
+    //     layers: reportsFilter,
+    //   });
+    //   console.log(reportsFilter);      <-- this  and moveEnd cause state mutation according to redux???
+    //   console.log(features);
+    //   if (features) {
+    //     dispatch(setVisibleReports(features));
+    //   }
+    // }
   }, [reportsFilter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filterMarkers = () => {
@@ -230,6 +191,39 @@ export default function ReportMap() {
       });
     }
   };
+  
+
+  // useEffect(() => {
+  //   if (mapState) {
+  //     mapState.on("moveend", (event) => {
+  //       if (event.originalEvent){
+  //       let features = mapState.queryRenderedFeatures({
+  //         layers: allLayers,
+  //       });
+
+  //       if (features) {
+        
+  //         dispatch(setVisibleReports(features));
+  //       }
+  //       }
+  //     });
+  //   }
+  // });
+
+  const popUpRef = useRef(new mapboxgl.Popup({ closeButton: false}));
+
+
+  useEffect(()=> {
+    if (popupCoor == null && popUpRef.current) {popUpRef.current.remove()}
+    else if (mapState && popupCoor) {
+    
+    const popupNode = document.createElement('div');
+    ReactDOM.render((<h4>{popupCoor.title}</h4>), popupNode);
+    // set popup on map
+    popUpRef.current.setLngLat(popupCoor.coordinates).setDOMContent(popupNode).addTo(mapState);
+    }
+   
+  }, [popupCoor])
 
   return (
     <>

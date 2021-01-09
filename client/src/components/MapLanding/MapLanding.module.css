@@ -26,3 +26,16 @@
     -ms-transform: translateX(0%) translateY(-75%) ;
     -o-transform: translateX(0%) translateY(-75%) ;
 }
+
+.legend{
+  background-color: rgba(255, 255, 255, .9);
+  padding: 8px;
+  position: absolute;
+  margin: 10px;
+  z-index: 1;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}

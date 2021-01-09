@@ -15,7 +15,7 @@ const ReportSchema = new Schema({
         enum: ["Mobility", "Audial", "Visual", "Cognitive", "Other"],
         default: "Mobility"},
     
-    location: {
+    geometry: {
         type: {
           type: String, 
           enum: ['Point'], 
@@ -25,8 +25,9 @@ const ReportSchema = new Schema({
           type: [Number],
           index: '2dsphere'
         },
-        formattedAddress: String,
+        
       },
+    formattedAddress: String,
     status: {
         type: String,
         enum: ["Reported", "Scheduled", "Fixed", "Unresolved"],
@@ -35,11 +36,7 @@ const ReportSchema = new Schema({
             default: Date.now}
     },
     description: { type: String, required: [true, "Please provide a description"]},
-    admin_comments: [
-        {author: { type: Schema.Types.ObjectId, ref: "User", required: [true, "Admin author needed"], },
-         created_date:  {type: Date, default: Date.now},
-        comment: String
-        }],
+    
     
     user_comments: [
         {author: { type: Schema.Types.ObjectId, ref: "User", required: [true, "User author needed"] },

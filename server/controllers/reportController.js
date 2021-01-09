@@ -44,18 +44,18 @@ export const createReport= async(req, res) => {
 
 
         const newReport = new Report({
-            data: { 
+            
               geometry: {
                 coordinates: results.geometry.coordinates
               },
-              properties: {
+              
                 created_by: req.user.id,
                 title,
                 formattedAddress: results.place_name,
                 category,
-                status
-              }
-            },
+                status,
+              
+  
             description
             
         })
