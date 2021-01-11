@@ -124,9 +124,9 @@ export default function ReportMap() {
           }
         })
       );
-
+        
       // send reports to reports list value in redux state
-      dispatch(setVisibleReports([...reportsInGeojson]));
+      dispatch(setVisibleReports(reportsInGeojson));
 
       //set map to state to filter later (set on load so all styles finish loading)
       setMapState(map);
@@ -160,7 +160,7 @@ export default function ReportMap() {
       })
     );
 
-    
+  
     
     return () => map.remove();
   }, [reportsInGeojson]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -172,7 +172,7 @@ export default function ReportMap() {
     //   let features = mapState.queryRenderedFeatures({
     //     layers: reportsFilter,
     //   });
-    //   console.log(reportsFilter);      <-- this  and moveEnd cause state mutation according to redux???
+    //   console.log(reportsFilter);     // <-- this  and moveEnd cause state mutation according to redux???
     //   console.log(features);
     //   if (features) {
     //     dispatch(setVisibleReports(features));
@@ -193,22 +193,22 @@ export default function ReportMap() {
   };
   
 
-  useEffect(() => {
-    if (mapState) {
-      mapState.on("moveend", (event) => {
-        if (event.originalEvent){
-        let features = mapState.queryRenderedFeatures({
-          layers: allLayers,
-        });
+  // useEffect(() => {
+  //   if (mapState) {
+  //     mapState.on("moveend", (event) => {
+  //       if (event.originalEvent){
+  //       let features = mapState.queryRenderedFeatures({
+  //         layers: allLayers,
+  //       });
 
-        if (features) {
-        
-          dispatch(setVisibleReports(features));
-        }
-        }
-      });
-    }
-  });
+  //       if (features) {
+  //         console.log(features)
+  //         dispatch(setVisibleReports(features));
+  //       }
+  //       }
+  //     });
+  //   }
+  // });
 
   const popUpRef = useRef(new mapboxgl.Popup({ closeButton: false}));
 

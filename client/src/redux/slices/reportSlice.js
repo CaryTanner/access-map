@@ -7,8 +7,8 @@ const reportsInitialState = {
   reportsInGeojson: [],
   isLoading: false,
   error: null,
-  visibleReports: null,
-  reportsFilter: null,
+  visibleReports: [],
+  reportsFilter: [],
   popupCoor: null,
 };
 
@@ -47,10 +47,11 @@ const reports = createSlice({
     getSingleReportFailure: loadingFailed,
     getAllReportsFailure: loadingFailed,
     setVisibleReports(state, action) {
-      state.visibleReports = action.payload;
+      action.payload.forEach(report => 
+        state.visibleReports.push(report));
     },
     setReportsFilter(state, action) {
-      state.reportsFilter = action.payload;
+      state.reportsFilter = action.payload
     },
     setPopupCoor(state, action) {
       state.popupCoor = action.payload;

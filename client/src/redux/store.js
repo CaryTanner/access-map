@@ -2,11 +2,13 @@ import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './slices/authSlice'
 import reportsReducer from './slices/reportSlice'
-
+import mapReducer from './slices/mapSlice'
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  reports: reportsReducer
+  reports: reportsReducer,
+
+  map: mapReducer 
 })
 
 

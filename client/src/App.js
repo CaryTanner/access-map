@@ -12,6 +12,7 @@ import MakeReport from "./components/MakeReport/MakeReport"
 import HomePage from "./components/HomePage/HomePage"
 import MapLanding from "./components/MapLanding/MapLanding"
 import ReportDetails from "./components/ReportDetails/ReportDetails"
+import Map from './components/ContextMap/Map/Map'
 
 function App() {
   const { Content } = Layout;
@@ -39,10 +40,15 @@ function App() {
           <Route path="/map">
             <MapLanding />
           </Route>
+          <Route path="/contextmap">
+            <Map />
+          </Route>
           <Route path="/users"></Route>
           <Route exact path="/">
             <HomePage/>
           </Route>
+
+
         </Content>
       </Switch>
       <Footer />
