@@ -1,9 +1,7 @@
-
-
-import circle2 from "../../../images/circle2.png";
-import roadblock2 from "../../../images/roadblock2.png";
-import triangle2 from "../../../images/triangle2.png";
-import square2 from "../../../images/square2.png";
+import circle2 from "../../images/circle2.png";
+import roadblock2 from "../../images/roadblock2.png";
+import triangle2 from "../../images/triangle2.png";
+import square2 from "../../images/square2.png";
 
 
 

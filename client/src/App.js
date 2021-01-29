@@ -12,7 +12,7 @@ import MakeReport from "./components/MakeReport/MakeReport"
 import HomePage from "./components/HomePage/HomePage"
 import MapLanding from "./components/MapLanding/MapLanding"
 import ReportDetails from "./components/ReportDetails/ReportDetails"
-import Map from './components/ContextMap/Map/Map'
+
 
 function App() {
   const { Content } = Layout;
@@ -34,15 +34,11 @@ function App() {
           <Route path="/signup">
             <SignUp />
           </Route>
-          <Route path="/makereport">
-            <MakeReport />
-          </Route>
-          <Route path="/map">
+          <Route path="/map/:sidepanelname">
             <MapLanding />
           </Route>
-          <Route path="/contextmap">
-            <Map />
-          </Route>
+          
+          
           <Route path="/users"></Route>
           <Route exact path="/">
             <HomePage/>

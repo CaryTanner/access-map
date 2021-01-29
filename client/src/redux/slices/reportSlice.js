@@ -7,9 +7,7 @@ const reportsInitialState = {
   reportsInGeojson: [],
   isLoading: false,
   error: null,
-  visibleReports: [],
-  reportsFilter: [],
-  popupCoor: null,
+  
 };
 
 function startLoading(state) {
@@ -46,16 +44,7 @@ const reports = createSlice({
     },
     getSingleReportFailure: loadingFailed,
     getAllReportsFailure: loadingFailed,
-    setVisibleReports(state, action) {
-      action.payload.forEach(report => 
-        state.visibleReports.push(report));
-    },
-    setReportsFilter(state, action) {
-      state.reportsFilter = action.payload
-    },
-    setPopupCoor(state, action) {
-      state.popupCoor = action.payload;
-    },
+    
   },
 });
 
@@ -66,9 +55,7 @@ export const {
   getSingleReportSuccess,
   getSingleReportFailure,
   getAllReportsFailure,
-  setVisibleReports,
-  setReportsFilter,
-  setPopupCoor,
+  
 } = reports.actions;
 
 export default reports.reducer;
@@ -96,7 +83,7 @@ export const fetchSingleReport = (id) => async (dispatch) => {
 
 
 const convertToGeojson = ( report )=> {
- const {geometry, _id, created_date, created_by, title, category, formattedAddress, status } = report
+ const {geometry, _id, created_date, created_by, title, category, formattedAddress, status, report_number } = report
 
  const geojson = {
   type: "Feature", 
@@ -108,7 +95,8 @@ const convertToGeojson = ( report )=> {
      title, 
      category, 
      formattedAddress, 
-     status
+     status,
+     report_number
 
    }  
  }

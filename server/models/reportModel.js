@@ -3,6 +3,8 @@ import { Schema, model } from 'mongoose';
 //creat schema 
 
 const ReportSchema = new Schema({
+    report_number: {type: Number, required: [true, "Report must have a number"],
+    unique: true},
     created_date: {
         type: Date,
         default: Date.now

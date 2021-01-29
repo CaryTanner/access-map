@@ -124,16 +124,16 @@ export default function Header() {
       <Menu.Item
         key="map"
         tabindex={0}
-        onClick={() => clickLink("/map")}
-        onKeyPress={() => handleEnterKey(clickLink("/map"))}
+        onClick={() => clickLink("/map/reports")}
+        onKeyPress={() => handleEnterKey(clickLink("/map/reports"))}
       >
         Map
       </Menu.Item>
       <Menu.Item
         key="report"
         tabindex={0}
-        onClick={() => clickLink("/makereport")}
-        onKeyPress={() => handleEnterKey(clickLink("/makereport"))}
+        onClick={() => clickLink("/map/makereport")}
+        onKeyPress={() => handleEnterKey(clickLink("/map/makereport"))}
       >
         Make Report
       </Menu.Item>

@@ -38,6 +38,10 @@ export const createReport= async(req, res) => {
         return res.status(400).json({ msg: "Please enter all fields" });
 
 
+      //get doc count for report_number
+      const numberReports = await Report.estimatedDocumentCount()
+      const report_number = numberReports + 1
+
         //api call to mapbox geocoder
         const results = await addressLookUp(address)
         if(!results) throw Error('Problem with geocoding')
@@ -54,9 +58,8 @@ export const createReport= async(req, res) => {
                 formattedAddress: results.place_name,
                 category,
                 status,
-              
-  
-            description
+                report_number,
+                description
             
         })
 

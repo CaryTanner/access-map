@@ -6,29 +6,27 @@ import { createSlice } from "@reduxjs/toolkit";
 const mapSlice = createSlice({
     name: "mapSlice",
     initialState: {
-     mapStyle: "init"
-    },
+      visibleReports: [],
+      reportsFilter: [],
+      popupCoor: null},
     reducers: {
-        setMapStyle(state, action){
-            state.mapStyle = action.payload
-        },
-        setLayerViz(state, action){
-            
-          // const { layer, visible } = action.payload
-          // if (visible === true) {
-          //       state.mapStyle.layers.find((layer) => layer.id === layer).layout.visibility = 'visible';
-          //     } else {
-          //       state.mapStyle.layers.find((layer) => layer.id === layer).layout.visibility = 'none';
-          //     }
-        },
-        addLayer(){},
-        addSource(){},
+      setVisibleReports(state, action) {
+        
+        state.visibleReports = action.payload
+      },
+      setReportsFilter(state, action) {
+        state.reportsFilter = action.payload
+      },
+      setPopupCoor(state, action) {
+        state.popupCoor = action.payload;
+      },
     }
 })
 
 export const {
-setMapStyle,
-setLayerViz
+  setVisibleReports,
+  setReportsFilter,
+  setPopupCoor,
   } = mapSlice.actions;
   
   export default mapSlice.reducer;
