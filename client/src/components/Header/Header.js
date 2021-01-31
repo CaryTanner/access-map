@@ -54,11 +54,11 @@ export default function Header() {
 
   const avatarMenu = (
     <Menu>
-      <Menu.Item tabindex={0} key="1">
+      <Menu.Item tabIndex={0} key="1">
         user details!
       </Menu.Item>
       <Menu.Item key="2">
-        <Button tabindex={0} onClick={handleLogout} key="2" type="primary">
+        <Button tabIndex={0} onClick={handleLogout} key="2" type="primary">
           Logout
         </Button>
       </Menu.Item>
@@ -70,14 +70,14 @@ export default function Header() {
       <>
         <Menu.Item
           key="sign up"
-          tabindex={0}
+          tabIndex={0}
           onClick={() => clickLink("/signup")}
           onKeyPress={() => handleEnterKey(clickLink("/signup"))}
         >
           Sign Up
         </Menu.Item>
         <Menu.Item
-          tabindex={0}
+          tabIndex={0}
           key="login"
           onClick={() => clickLink("/login")}
           onKeyPress={() => handleEnterKey(clickLink("/login"))}
@@ -93,7 +93,7 @@ export default function Header() {
         <Dropdown overlay={avatarMenu} trigger={["click"]}>
           <Avatar
             className={styles.focus}
-            tabindex={0}
+            tabIndex={0}
             aria-haspopup="true"
             style={{
               backgroundColor: "#154d42 ",
@@ -115,7 +115,7 @@ export default function Header() {
     return (<>
     <Menu.Item
         key="home"
-        tabindex={0}
+        tabIndex={0}
         onClick={() => clickLink("/")}
         onKeyPress={() => handleEnterKey(clickLink("/"))}
       >
@@ -123,7 +123,7 @@ export default function Header() {
       </Menu.Item>
       <Menu.Item
         key="map"
-        tabindex={0}
+        tabIndex={0}
         onClick={() => clickLink("/map/reports")}
         onKeyPress={() => handleEnterKey(clickLink("/map/reports"))}
       >
@@ -131,7 +131,7 @@ export default function Header() {
       </Menu.Item>
       <Menu.Item
         key="report"
-        tabindex={0}
+        tabIndex={0}
         onClick={() => clickLink("/map/makereport")}
         onKeyPress={() => handleEnterKey(clickLink("/map/makereport"))}
       >
@@ -139,7 +139,7 @@ export default function Header() {
       </Menu.Item>
       <Menu.Item
         key="about"
-        tabindex={0}
+        tabIndex={0}
         onClick={() => clickLink("/about")}
         onKeyPress={() => handleEnterKey(clickLink("/about"))}
       >
@@ -203,7 +203,7 @@ export default function Header() {
               <Dropdown overlay={mobileMenu} trigger={["click"]}>
                 <MenuOutlined
                   className={styles.focus}
-                  tabindex={0}
+                  tabIndex={0}
                   aria-haspopup="true"
                   style={{ fontSize: "1.5rem", marginTop: "8px" }}
                   onKeyPress={(event) =>
@@ -214,7 +214,7 @@ export default function Header() {
               {user && (
                 <Dropdown overlay={avatarMenu} trigger={["click"]}>
                   <Avatar
-                    tabindex={0}
+                    tabIndex={0}
                     aria-haspopup="true"
                     style={{
                       backgroundColor: "#154d42 ",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -14,30 +14,36 @@ import { EnvironmentOutlined } from "@ant-design/icons";
 import { useDebounce } from "../../../utils/useDebounce";
 import { forwardGeoSearch } from '../../../api/geocodeAPI'
 
+//options for autocomplete dropdown
+const { Option } = AutoComplete;
 
 
 export default function LocationForwardGeo() {
   const [searchValue, setSearchValue] = useState("");
-  const [options, setOptions] = useState([]);
-  const [suggestions, setSuggestions] = useState([]);
-  const debounceSearchQuery = useDebounce(searchValue, 300)
   
-  const onSearch = async () => {
-    if(debounceSearchQuery){
+  const [suggestions, setSuggestions] = useState('');
+  const debounceSearchQuery = useDebounce(searchValue, 500)
+  
+  const onSearch = (term) => {
+      setSearchValue(term)
+    }
+ 
+  useEffect(() => {
+    let search = async () => {
       let results = await forwardGeoSearch(debounceSearchQuery)
+      console.log(results)
       setSuggestions(results)
     }
-  };
+    search()
+  }, [debounceSearchQuery])
 
   const onSelect = (data) => {
     console.log("onSelect", data);
   };
 
-  const onChange = (data) => {
-    setSearchValue(data);
-  };
-  //options for autocomplete dropdown
-  const { Option } = AutoComplete;
+  
+  
+  
   return (
     <>
       <Form
@@ -52,18 +58,19 @@ export default function LocationForwardGeo() {
           /// add rule to validate less than 256 characters and no semicolons
 
           aria-label="Location address search"
+          
         >
           <AutoComplete
-            style={{
-              width: 200,
-            }}
+            // style={{
+            //   width: 200,
+            // }}
             onSelect={onSelect}
             onSearch={onSearch}
             placeholder="Location or Address"
           >
-            {suggestions.map((sug, i) => (
-              <Option key={i} value={sug}>
-                {sug}
+            {suggestions && suggestions.data.features.map((sug, i) => (
+              <Option key={i} value={[sug.place_name, sug.geometry.coordinates ]}>
+                {sug.place_name}
               </Option>
             ))}
           </AutoComplete>

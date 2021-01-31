@@ -1,5 +1,5 @@
 import {mapbox_public_key} from './reportsAPI'
-import Axios from 'axios'
+
 import axios from 'axios'
 
 const forwardEndpoint = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
@@ -8,9 +8,11 @@ const proximity = "&proximity=18.07178990362403,59.323730425969565"
 
 
 export const forwardGeoSearch =  async (searchQuery) => {
-    let query = encodeURIComponent(searchQuery)
+    console.log(searchQuery)
+    let query = encodeURI(searchQuery)
+    console.log(query)
     const results = await axios.get(forwardEndpoint + query + ".json" + boundingBox + proximity + "&access_token=" + mapbox_public_key ) 
-
+console.log('fetch sugs')
     return results
 }
 

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import authReducer from './slices/authSlice'
 import reportsReducer from './slices/reportSlice'
 import mapReducer from './slices/mapSlice'
@@ -14,6 +14,8 @@ const rootReducer = combineReducers({
 
 
 export const store = configureStore({
-    reducer: rootReducer
-  
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware({
+      serializableCheck: false
+    }),
 })

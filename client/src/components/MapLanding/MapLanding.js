@@ -15,8 +15,9 @@ import MakeReport from '../MakeReport/MakeReport'
 
 export default function MapLanding() {
   const router = useRouter();
-  const showMakeReport = router.match.path === "/map/makereport"
-  const showReportList = router.match.path === "/map/reports"
+  const showMakeReport = router.match.params.sidepanelname === "makereport"
+  const showReportList = router.match.params.sidepanelname  === "reports"
+ 
 
   const { Text } = Typography;
   const { useBreakpoint } = Grid;

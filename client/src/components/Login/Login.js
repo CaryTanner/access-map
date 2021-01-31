@@ -121,7 +121,7 @@ const success = () => {
                   <Typography.Text type="secondary">
                     New to Accessible Stockholm?
                   </Typography.Text>{" "}
-                  <Typography.Link tabindex={0} href="/signup">
+                  <Typography.Link tabIndex={0} href="/signup">
                     Register Now!
                   </Typography.Link>
                 </Form.Item>
