@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import styles from "./ReportFilter.module.css";
+import React from "react";
+//import styles from "./ReportFilter.module.css";
 import { Typography, Radio } from "antd";
 import { useDispatch } from "react-redux";
 import { setReportsFilter } from "../../redux/slices/mapSlice";

@@ -11,7 +11,8 @@ export default function HomePage(){
     
     dispatch(fetchVerifyUser(token))
 
-  }, [token])
+  
+  }, [token, dispatch])
 
   return (
       <>

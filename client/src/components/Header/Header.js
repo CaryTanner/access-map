@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Header.module.css";
 import {
   Menu,
@@ -7,7 +7,7 @@ import {
   Grid,
   Typography,
   Layout,
-  Popconfirm,
+  
   message,
   Avatar,
   Dropdown,
@@ -29,7 +29,7 @@ export default function Header() {
   const { Header } = Layout;
   //breakpoints from Antd for mobile layout
   const { useBreakpoint } = Grid;
-  const { xs, sm } = useBreakpoint();
+  const { xs } = useBreakpoint();
 
   //navigation functions
   const clickLink = (page) => {

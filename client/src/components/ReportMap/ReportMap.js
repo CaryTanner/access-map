@@ -148,6 +148,7 @@ export default function ReportMap() {
         .setDOMContent(popupNode)
         .addTo(mapState);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupCoor]);
 
   return (

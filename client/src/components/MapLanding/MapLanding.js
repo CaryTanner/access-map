@@ -3,7 +3,7 @@ import styles from "./MapLanding.module.css";
 import ReportMap from "../ReportMap/ReportMap";
 import ReportList from "../ReportList/ReportList";
 import ReportFilter from "../ReportFilter/ReportFilter";
-import { Col, Row, Grid, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import { useDispatch } from "react-redux";
 import { fetchAllReports } from "../../redux/slices/reportSlice";
 import circle2 from "../../images/circle2.png";
@@ -20,8 +20,7 @@ export default function MapLanding() {
  
 
   const { Text } = Typography;
-  const { useBreakpoint } = Grid;
-  const { xs, sm } = useBreakpoint();
+ 
 
   const dispatch = useDispatch();
   useEffect(() => {

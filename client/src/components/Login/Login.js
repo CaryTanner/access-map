@@ -11,7 +11,7 @@ import {
   Alert,
   message
 } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import {  LockOutlined } from "@ant-design/icons";
 import QueueAnim from "rc-queue-anim";
 import {fetchLoginUser} from '../../redux/slices/authSlice'
 import {useRouter} from '../../utils/useRouter'
@@ -39,6 +39,7 @@ const onFinish = (values) => {
         router.push("/")
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, error])
 
 //success pop message 
