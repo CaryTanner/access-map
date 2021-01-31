@@ -9,6 +9,8 @@ import {
 //import { EnvironmentOutlined } from "@ant-design/icons";
 import { useDebounce } from "../../../utils/useDebounce";
 import { forwardGeoSearch } from '../../../api/geocodeAPI'
+import { useDispatch } from "react-redux";
+import {setMarkerCoor} from '../../../redux/slices/mapSlice'
 
 //options for autocomplete dropdown
 const { Option } = AutoComplete;
@@ -26,15 +28,22 @@ export default function LocationForwardGeo() {
  
   useEffect(() => {
     let search = async () => {
+      if(searchValue) {
       let results = await forwardGeoSearch(debounceSearchQuery)
-      console.log(results)
+      
       setSuggestions(results)
+      }
     }
     search()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceSearchQuery])
+
+  //set marker on map for selected location
+const dispatch = useDispatch()
 
   const onSelect = (data) => {
     console.log("onSelect", data);
+    dispatch(setMarkerCoor(data[1]))
   };
 
   

@@ -8,7 +8,9 @@ const mapSlice = createSlice({
     initialState: {
       visibleReports: [],
       reportsFilter: [],
-      popupCoor: null},
+      popupCoor: null,
+      markerCoor: null,
+    },
     reducers: {
       setVisibleReports(state, action) {
         
@@ -20,6 +22,10 @@ const mapSlice = createSlice({
       setPopupCoor(state, action) {
         state.popupCoor = action.payload;
       },
+      setMarkerCoor(state, action) {
+        console.log(action)
+        state.markerCoor = action.payload;
+      },
     }
 })
 
@@ -27,6 +33,7 @@ export const {
   setVisibleReports,
   setReportsFilter,
   setPopupCoor,
+  setMarkerCoor
   } = mapSlice.actions;
   
   export default mapSlice.reducer;

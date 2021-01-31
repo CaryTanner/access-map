@@ -13,7 +13,7 @@ mapboxgl.accessToken = mapbox_public_key;
 export default function ReportMap() {
   const dispatch = useDispatch();
   const { reportsInGeojson } = useSelector((state) => state.reports);
-  const { reportsFilter, popupCoor } = useSelector((state) => state.map);
+  const { reportsFilter, popupCoor, markerCoor } = useSelector((state) => state.map);
 
   //local state for filtering report
   const [mapState, setMapState] = useState(null);
@@ -150,6 +150,27 @@ export default function ReportMap() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popupCoor]);
+
+
+  //marker for new report creation form
+
+  const markerRef = useRef(new mapboxgl.Marker())
+
+  useEffect(()=> {
+    if (markerCoor == null && markerRef.current) {
+      markerRef.current.remove();
+    } else if (mapState && markerCoor) {
+      const markerNode = document.createElement("div");
+      ReactDOM.render(markerNode);
+      // set popup on map
+      markerRef.current
+        .setLngLat(markerCoor.coordinates)
+        .setDOMContent(markerNode)
+        .addTo(mapState);
+    }
+
+  }, [markerCoor])
+  
 
   return (
     <>
