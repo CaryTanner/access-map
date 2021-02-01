@@ -60,7 +60,7 @@ const dispatch = useDispatch()
           name="forwardLocation"
           rules={[{ required: true, message: "Please select a location" }]}
 
-          /// add rule to validate less than 256 characters and no semicolons
+          /// add rule to validate less than 256 characters and no semicolons?
 
           aria-label="Location address search"
           

@@ -161,12 +161,19 @@ export default function ReportMap() {
       markerRef.current.remove();
     } else if (mapState && markerCoor) {
       const markerNode = document.createElement("div");
-      ReactDOM.render(markerNode);
-      // set popup on map
+      ReactDOM.render(<h5>marker</h5>, markerNode);
+      // set marker on map
       markerRef.current
-        .setLngLat(markerCoor.coordinates)
-        .setDOMContent(markerNode)
+        .setLngLat(markerCoor)
+        //.setDOMContent(markerNode)
         .addTo(mapState);
+        mapState.flyTo({
+          center: markerCoor,
+          essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+          zoom: 18,
+          speed: 0.7,
+          curve: 1,  //speed of possible zoom in or out
+        });
     }
 
   }, [markerCoor])
